@@ -1,0 +1,8 @@
+<div class="p-4">
+    <h4 class="fst-italic">Catégories</h4>
+    <ul>
+    {% for category in categories %}
+         <li><a href="{{path('category_show', {'slug': category.slug})}}" class="text-decoration-none">{{ category.name }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
