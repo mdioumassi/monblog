@@ -31,7 +31,7 @@ class Menu
     private ?bool $isVisible = null;
 
     #[ORM\ManyToOne]
-    private ?Article $artcle = null;
+    private ?Article $article = null;
 
     #[ORM\ManyToOne]
     private ?Category $category = null;
@@ -100,26 +100,14 @@ class Menu
         return $this;
     }
 
-    public function isVisible(): ?bool
+    public function getIsVisible(): ?bool
     {
         return $this->isVisible;
     }
 
-    public function setVisible(bool $isVisible): static
+    public function setIsVisible(bool $isVisible): static
     {
         $this->isVisible = $isVisible;
-
-        return $this;
-    }
-
-    public function getArtcle(): ?Article
-    {
-        return $this->artcle;
-    }
-
-    public function setArtcle(?Article $artcle): static
-    {
-        $this->artcle = $artcle;
 
         return $this;
     }
@@ -158,5 +146,22 @@ class Menu
         $this->link = $link;
 
         return $this;
+    }
+
+    public function getArticle(): ?Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Article $article): static
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }
