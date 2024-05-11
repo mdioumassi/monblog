@@ -1,9 +1,11 @@
+{% set menus = menu_service.findAll %}
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Blog - {% endblock %}
+			{% block title %}Blog -
+			{% endblock %}
 		</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
 		{% block stylesheets %}
@@ -26,7 +28,7 @@
 							<a class="dropdown-item" href="{{ path('admin') }}">Tableau de bord</a>
 						</li>
 						<li>
-							<a class="dropdown-item" href="#">Menus</a>
+							<a class="dropdown-item" href="{{ ea_index('MenuCrudController')}}">Menus</a>
 						</li>
 					</ul>
 				</div>
@@ -52,6 +54,28 @@
 					<span class="fs-4">Mon blog</span>
 				</a>
 				<ul class="nav nav-pills">
+					{% for menu in menus %}
+						{% if menu.subMenus.count > 0 %}
+							<div class="dropdown">
+								<a class="nav nav-link text-dark dropdown-toggle" href="{{ menu|menuLink }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									{{ menu.name }}
+								</a>
+								<ul class="dropdown-menu">
+									{% for subMenu in menu.subMenus %}
+										<li>
+											<a class="dropdown-item" href="{{ subMenu|menuLink}}">{{ subMenu.name }}</a>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						{% else %}
+							<li class="nav-item">
+								<a class="nav-link text-dark" href="{{ menu|menuLink }}">{{ menu.name }}</a>
+							</li>
+
+						{% endif %}
+
+					{% endfor %}
 					<li class="nav-item">
 						<a class="nav-link text-dark" href="#">S'inscrire</a>
 					</li>

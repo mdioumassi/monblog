@@ -37,6 +37,13 @@ class MenuCrudController extends AbstractCrudController
         return Menu::class;
     }
 
+    // public function configureActions(Actions $actions): Actions
+    // {
+    //     return $actions
+    //         ->remove(Crud::PAGE_INDEX, Action::NEW);
+
+    // }
+
     public function configureCrud(Crud $crud): Crud
     {
         $subMenuIndex = $this->getSubMenuIndex();
@@ -91,7 +98,6 @@ class MenuCrudController extends AbstractCrudController
     private function getFieldFromSubMenuIndex(int $subMenuIndex): AssociationField|TextField
     {
         $fieldName = $this->getFieldNameFromSubMenuIndex($subMenuIndex);
-      //  dd($fieldName);
 
         return ($fieldName === 'link') ? TextField::new($fieldName) : AssociationField::new($fieldName);
     }

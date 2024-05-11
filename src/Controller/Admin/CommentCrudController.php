@@ -26,7 +26,6 @@ class CommentCrudController extends AbstractCrudController
     {
         return $actions
             ->remove(Crud::PAGE_INDEX, Action::NEW);
-    
     }
 
     public function configureFields(string $pageName): iterable

@@ -26,8 +26,13 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+        $url = $this->adminUrlGenerator
+            ->setController(ArticleCrudController::class)
+            ->setAction(Action::INDEX)
+            ->set('menuIndex', 0)
+            ->generateUrl();
         
-        return $this->redirect($this->adminUrlGenerator->setController(ArticleCrudController::class)->generateUrl());
+        return $this->redirect($url);
     }
 
     public function configureDashboard(): Dashboard
@@ -51,7 +56,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Pages', 'fas fa-file', Menu::class)
                 ->setQueryParameter('submenuIndex', 0)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Articles', 'fas fa-newspaper', Menu::class)
-                ->setQueryParameter('submenuIndex', 1)->setAction(Crud::PAGE_NEW),
+                ->setQueryParameter('submenuIndex', 1)->setAction(Crud::PAGE_INDEX),
             MenuItem::linkToCrud('Liens personnalisés', 'fas fa-link', Menu::class)
                 ->setQueryParameter('submenuIndex', 2)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Catégories', 'fab fa-delicious', Menu::class)
