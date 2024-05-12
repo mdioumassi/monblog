@@ -11,7 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\User;
 
+/**
+ * @method User|null getUser()
+ */
 class CommentController extends AbstractController
 {
     #[Route('/ajax/comments', name: 'comment_add')]
@@ -27,10 +31,17 @@ class CommentController extends AbstractController
             return $this->json(['message' => 'Article introuvable'], 404);
         }
 
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->json(['message' => 'Vous devez être connecté pour commenter'], 403);
+        }
+
         $comment = new Comment($article);
         $comment->setContent($commentData['content']);
         $comment->setCreatedAt(new \DateTime());
-        $comment->setUser($userRepo->find(1));
+
+        $comment->setUser($user);
 
         $em->persist($comment);
         $em->flush();

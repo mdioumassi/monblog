@@ -12,18 +12,19 @@
 
 		<h2 class="comment-title mt-5">
 			<span class="comment-count">{{ article.comments|length }}</span>
-				commentaire(s)
+			commentaire(s)
 		</h2>
 		<hr>
-		<div class="comment-area mb-5">
-			{{ form(commentForm, {'attr': {'class': 'comment-form'}}) }}
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<div class="comment-area mb-5">
+					{{ form(commentForm, {'attr': {'class': 'comment-form'}}) }}
+				</div>
+			{% endif %}
+			<div class="comment-list">
+				{% for comment in article.comments %}
+					{% include "comment/index.html.twig" with [comment] %}
+				{% endfor %}
+			</div>
 		</div>
 
-		<div class="comment-list">
-			{% for comment in article.comments %}
-				{% include "comment/index.html.twig" with [comment] %}
-			{% endfor %}
-		</div>
-	</div>
-
-{% endblock %}
+	{% endblock %}
