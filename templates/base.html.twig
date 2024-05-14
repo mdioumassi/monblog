@@ -30,7 +30,7 @@
 							</li>
 							{% if is_granted('ROLE_ADMIN') %}
 								<li>
-									<a class="dropdown-item" href="{{ ea_index('MenuCrudController')}}">Menus</a>
+									<a class="dropdown-item" href="{{ ea_url('MenuCrudController')}}">Menus</a>
 								</li>
 							{% endif %}
 						</ul>
@@ -42,10 +42,10 @@
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="">
 							<li>
-								<a class="dropdown-item" href="#">Article</a>
+								<a class="dropdown-item" href="{{ ea_gen_url('ArticleCrudController', 'new')}}">Article</a>
 							</li>
 							<li>
-								<a class="dropdown-item" href="#">Page</a>
+								<a class="dropdown-item" href="{{ ea_gen_url('PageCrudController', 'new')}}">Page</a>
 							</li>
 						</ul>
 					</div>
