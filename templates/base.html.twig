@@ -1,4 +1,6 @@
 {% set menus = menu_service.findAll %}
+{% set options = option_service.findAll %}
+
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -22,7 +24,7 @@
 				<div class="container d-flex flex-wrap">
 					<div class="dropdown">
 						<a class="nav nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Mon blog
+							{{ options['blog_title'] }}
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="">
 							<li>
@@ -30,7 +32,7 @@
 							</li>
 							{% if is_granted('ROLE_ADMIN') %}
 								<li>
-									<a class="dropdown-item" href="{{ ea_url('MenuCrudController')}}">Menus</a>
+									<a class="dropdown-item" href="{{ ea_gen_url('MenuCrudController')}}">Menus</a>
 								</li>
 							{% endif %}
 						</ul>
@@ -55,7 +57,7 @@
 		<div class="container">
 			<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
 				<a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none" href="{{ path('app_home') }}">
-					<span class="fs-4">Mon blog</span>
+					<span class="fs-4">{{ options['blog_title'] }}</span>
 				</a>
 				<ul class="nav nav-pills">
 					{% for menu in menus %}
@@ -81,9 +83,11 @@
 
 					{% endfor %}
 					{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-						<li class="nav-item">
-							<a class="nav-link text-dark" href="{{path('app_register')}}">S'inscrire</a>
-						</li>
+						{% if '1' == options['users_can_register'] %}
+							<li class="nav-item">
+								<a class="nav-link text-dark" href="{{path('app_register')}}">S'inscrire</a>
+							</li>
+						{% endif %}
 						<li class="nav-item">
 							<a class="nav-link text-dark" href="{{path('app_login')}}">Se coonecter</a>
 						</li>
@@ -125,7 +129,10 @@
 						<a href="#" class="nav-link px-2 text-body-secondary">About</a>
 					</li>
 				</ul>
-				<p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+				<p class="text-center text-body-secondary">©
+					{{ 'now'|date('Y')}}
+					{{ options['blog_copyright']}}
+				</p>
 			</footer>
 		</div>
 	</body>

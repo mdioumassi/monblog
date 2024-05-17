@@ -7,6 +7,7 @@ use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Media;
 use App\Entity\Menu;
+use App\Entity\Option;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -54,7 +55,7 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud('Pages', 'fas fa-file', Menu::class)
                     ->setQueryParameter('submenuIndex', 0)->setAction(Crud::PAGE_NEW),
                 MenuItem::linkToCrud('Articles', 'fas fa-newspaper', Menu::class)
-                    ->setQueryParameter('submenuIndex', 1)->setAction(Crud::PAGE_INDEX),
+                    ->setQueryParameter('submenuIndex', 1)->setAction(Crud::PAGE_NEW),
                 MenuItem::linkToCrud('Liens personnalisés', 'fas fa-link', Menu::class)
                     ->setQueryParameter('submenuIndex', 2)->setAction(Crud::PAGE_NEW),
                 MenuItem::linkToCrud('Catégories', 'fab fa-delicious', Menu::class)
@@ -80,6 +81,10 @@ class DashboardController extends AbstractDashboardController
             yield MenuItem::subMenu('Comptes', 'fas fa-user')->setSubItems([
                 MenuItem::linkToCrud('Tous Utilisateurs', 'fas fa-user-friends', User::class),
                 MenuItem::linkToCrud('Ajouter', 'fas fa-plus', User::class)->setAction(Crud::PAGE_NEW),
+            ]);
+
+            yield MenuItem::subMenu('Réglages', 'fas fa-cog')->setSubItems([
+                MenuItem::linkToCrud('Général', 'fas fa-cog', Option::class),
             ]);
         }
     }
