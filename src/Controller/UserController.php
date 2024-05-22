@@ -23,8 +23,8 @@ class UserController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $userCanRegister = $this->optionService->getValue('user_can_register');
-        if (!$userCanRegister) {
-            $this->redirectToRoute('app_home');
+        if ($userCanRegister !== '1') {
+            $this-redirecToRoute('app_home');
         }
 
         $user = new User();

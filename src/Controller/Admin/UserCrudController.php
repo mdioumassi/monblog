@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -48,16 +49,17 @@ class UserCrudController extends AbstractCrudController
         yield TextField::new('password')
             ->setFormType(PasswordType::class)
             ->onlyOnForms();
-            yield ChoiceField::new('roles')
-                ->allowMultipleChoices()
-                ->renderAsBadges([
-                    'ROLE_AUTHOR' => 'info',
-                    'ROLE_ADMIN' => 'success',
-                ])
-                ->setChoices([
-                    'Administrateur' => 'ROLE_ADMIN',
-                    'Auteur' => 'ROLE_AUTHOR',
-                ]);
+        yield ChoiceField::new('roles')
+            ->allowMultipleChoices()
+            ->renderAsBadges([
+                'ROLE_AUTHOR' => 'info',
+                'ROLE_ADMIN' => 'success',
+            ])
+            ->setChoices([
+                'Administrateur' => 'ROLE_ADMIN',
+                'Auteur' => 'ROLE_AUTHOR',
+            ]);
+     
     }
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
